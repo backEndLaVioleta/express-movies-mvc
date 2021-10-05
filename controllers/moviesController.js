@@ -1,5 +1,6 @@
 import moviesModel from '../models/moviesModel.js';
 import  HttpError  from 'http-errors';
+import movies from '../data/movies.js';
 // movies controller handles all http methods
 // gestion de las peticiones
 // GET
@@ -48,6 +49,16 @@ const postMovie = (req, res) =>{
 
 // PUT
 const putMovie = (req, res)=>{
+    const id = req.params.id;
+    const movieIndex = moviesModel.putMovies(id);
+    // returns -1 when is no a match
+    if(movieIndex < 0) 
+    res.status(400).json({result:`The movie with id: ${id} is not in the DDBB`});
+
+    const newMovie = {...movies[movieIndex],...req.body}
+    console.log(newMovie);
+    movies.splice(movieIndex, 1, newMovie);
+    res.json(movies[movieIndex]).status(200);
 
 }
 // DELETE
@@ -56,7 +67,7 @@ const deleteOneMovie = (req, res) =>{
     const deleteMe = moviesModel.deleteMovies(id);
     const movies = moviesModel.getMovies(); 
     if(!isNaN(deleteMe)){
-        res.status(404).send(`Movie with the id: ${id} no in the DDBB`);
+    res.status(404).send(`Movie with the id: ${id} no in the DDBB`);
     res.status(404).json({result:`Movie with the id: ${id} no in the DDBB` });
     }
     res.json(movies).status(200).send(`Movie with the id: ${id} has been deleted from the DDBB`);
@@ -68,5 +79,6 @@ export default {
     getAllMovies,
     postMovie,
     getOneMovie,
-    deleteOneMovie
+    deleteOneMovie,
+    putMovie
 }

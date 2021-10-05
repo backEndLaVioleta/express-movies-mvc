@@ -19,9 +19,9 @@ class MoviesModel{
     }
     // put 
     putMovies(num){
-        const findOneToUpdate = movies.find((el) => el.id == num);
-        if(findOneToUpdate != undefined)
-        return findOneToUpdate;
+        const findIndex = movies.findIndex((el) => el.id == num);
+        return findIndex;
+        
     }
     //delete
     deleteMovies(num){

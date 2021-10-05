@@ -6,9 +6,10 @@ const router = Router();
 
 router.route('/')
             .get(moviesController.getAllMovies)
-            .post(moviesController.getOneMovie)
+            .post(moviesController.postMovie)
 
 router.route('/:id').get(moviesController.getOneMovie)
+                    .put(moviesController.putMovie)
                     .delete(moviesController.deleteOneMovie)
 
 movieRoutes.get('/', moviesController.getAllMovies);
