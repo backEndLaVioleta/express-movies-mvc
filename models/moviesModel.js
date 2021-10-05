@@ -10,7 +10,7 @@ class MoviesModel{
     }
     // get one
     getOne(num){
-        const findMe = movies.filter((el) => el.id == num);
+        const findMe = movies.find((el) => el.id == num);
         return findMe;
     }
     // post
@@ -31,6 +31,7 @@ class MoviesModel{
         return eraseMe;
 
     }
+   
 }
 
 export default new MoviesModel()

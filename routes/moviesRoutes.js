@@ -4,15 +4,17 @@ const movieRoutes = express.Router();
 // refac
 const router = Router();
 
-router.route('/movies')
+router.route('/')
             .get(moviesController.getAllMovies)
             .post(moviesController.getOneMovie)
 
 router.route('/:id').get(moviesController.getOneMovie)
+                    .delete(moviesController.deleteOneMovie)
 
 movieRoutes.get('/', moviesController.getAllMovies);
 movieRoutes.get('/:id', moviesController.getOneMovie);
 movieRoutes.post('/', moviesController.postMovie);
 movieRoutes.delete('/:id', moviesController.deleteOneMovie);
 
-export default movieRoutes;
+// export default movieRoutes;
+export default router;

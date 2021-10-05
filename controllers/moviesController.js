@@ -1,4 +1,5 @@
 import moviesModel from '../models/moviesModel.js';
+import  HttpError  from 'http-errors';
 // movies controller handles all http methods
 // gestion de las peticiones
 // GET
@@ -9,7 +10,12 @@ const getAllMovies = (req,res) =>{
     
 }
 // GET ONE
-const getOneMovie = (req, res) =>{
+const getOneMovie = (req, res, next) =>{
+    // que exista el id
+    if(!req.params.id)
+        // si no hay id patada adelante con error
+        next(HttpError(400, {message: "No ID found"}));
+    
     const id = req.params.id;
     const movie = moviesModel.getOne(id);
     res.json(movie).status(201);
@@ -56,6 +62,7 @@ const deleteOneMovie = (req, res) =>{
     res.json(movies).status(200).send(`Movie with the id: ${id} has been deleted from the DDBB`);
     res.status(200).json({result:`Movie with the id: ${id} has been deleted from the DDBB` });
 }
+
 
 export default {
     getAllMovies,
