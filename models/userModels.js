@@ -6,6 +6,9 @@ class UserModel {
          return users;
      }
     // LOGIN
+    loginUser(str1, str2){
+        
+    }
     
     // GET
 
