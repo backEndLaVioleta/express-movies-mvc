@@ -42,7 +42,8 @@ const loginUser = (req, res, next) => {
  // we send username and user password
  let checkUser = userModel.userLogin(body.username, body.password);
  console.log(checkUser);
- (checkUser == true) ? res.json(token).send( `${userName} Welcome to your page`).status(200) :
+ let token = "token";
+ (checkUser == true) ? res.json({token: token}).send( `${userName} Welcome to your page`).status(200) :
                        next(HttpError(404, {message: `User ${body.username} not found`}));
  
 
