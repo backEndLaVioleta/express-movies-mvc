@@ -1,9 +1,11 @@
 import express, { Router } from 'express';
 import moviesController from '../controllers/moviesController.js';
+import authUser from '../middlewares/authHandler.js';
 const movieRoutes = express.Router();
 // refac
 const router = Router();
 
+router.use(authUser);
 router.route('/')
             .get(moviesController.getAllMovies)
             .post(moviesController.postMovie)

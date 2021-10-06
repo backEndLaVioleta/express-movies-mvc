@@ -1,4 +1,4 @@
-export default [
+const movies = [
     {
       id: 1,
       title: "The Shawshank Redemption",
@@ -91,4 +91,6 @@ export default [
         "Embeth Davidtz"
       ]
     }
-  ]
+  ];
+
+  export default movies;

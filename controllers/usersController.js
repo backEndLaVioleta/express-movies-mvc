@@ -1,5 +1,6 @@
 import userModel from '../models/userModels.js';
 import  HttpError  from 'http-errors';
+import bcrypt from 'bcrypt'
 // GET
 const getAllUsers = (req, res, next) =>{
     const users = userModel.getUsers();
@@ -14,16 +15,23 @@ const getAllUsers = (req, res, next) =>{
     res.json({name: `${userName}`, password: `${userPassword}`})
 } */
 
-const registerUser = (req, res, next) =>{
+const registerUser = async (req, res, next) =>{
  console.log('register controller works');
+ try {
+     
 const body = req.body;
 // si no tengo datos en name o pass
 if(!body.username || !body.password){
     next(HttpError(400,{message:'Error in the incoming data'}))
 }else {
+//
+const saltRounds = 10;
+
+const passwordHardsh = await bcrypt.hash(body.password, saltRounds);
+
 // si todo es correcto DEBEMOS guardar esoso datos!!! Important
 // Guardamos estos datos enun obj
-const user = {username: body.username, password: body.password}
+const user = {username: body.username, password: passwordHardsh}
 
 const result = userModel.createUser(user);
 
@@ -32,6 +40,9 @@ next(HttpError(400, {message:'Failed register'}))
 
 res.status(200).json(result);
 }
+ } catch (error) {
+     next(error);
+ }
 
 }
 
@@ -42,7 +53,7 @@ const loginUser = (req, res, next) => {
  // we send username and user password
  let checkUser = userModel.userLogin(body.username, body.password);
  console.log(checkUser);
- let token = "token";
+ let token = "miToken";
  if(!body.username || !body.password){
     next(HttpError(400,{message:'Error in the incoming data'}))
 } else {
