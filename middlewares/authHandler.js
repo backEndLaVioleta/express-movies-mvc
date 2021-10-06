@@ -1,4 +1,5 @@
 import  HttpError  from "http-errors";
+import bcrypt from 'bcrypt';
 
 
 const authUser = (req, res, next) =>{
@@ -18,4 +19,14 @@ const authUser = (req, res, next) =>{
     (token) ? next(): next(HttpError(401, {message:"Invalid token"}));
 }
 
-export default authUser;
+/* const decrypthandler = async (req, res, next) =>{
+
+    try {
+      const  passwordCorrect = await bcrypt.compare(req.body.password, user.password);
+    } catch (error) {
+        next(error)
+    }
+} */
+export default {
+    authUser
+};
