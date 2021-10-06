@@ -19,6 +19,17 @@ const authUser = (req, res, next) =>{
     (token) ? next(): next(HttpError(401, {message:"Invalid token"}));
 }
 
+const encryptPassword = async (req, res, next) => {
+    try {
+        const saltRounds = 10;
+        const passwordHardsh = await bcrypt.hash(req.body.password, saltRounds);
+        req.body.password = passwordHardsh;
+        next();
+        
+    } catch (error) {
+        next(error);
+    }
+}
 /* const decrypthandler = async (req, res, next) =>{
 
     try {
@@ -28,5 +39,6 @@ const authUser = (req, res, next) =>{
     }
 } */
 export default {
-    authUser
+    authUser,
+    encryptPassword
 };
