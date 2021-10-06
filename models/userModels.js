@@ -7,7 +7,8 @@ class UserModel {
      }
     // LOGIN
     loginUser(str1, str2){
-        
+        const user = users.filter((el) => el.name == str1 && el.password == str2);
+        return user;
     }
     
     // GET
