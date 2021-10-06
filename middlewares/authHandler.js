@@ -2,6 +2,15 @@ import  HttpError  from "http-errors";
 import bcrypt from 'bcrypt';
 
 
+    // desencriptar token para obtener username
+    // comparar el username token con username BBDD
+    // obtenemos fecha caducidad del token
+    /**
+     * Debemos recordar que debemos encriptar el password entrante
+     * y compararlo con el password YA encriptado que tenemos en la 
+     * base de datos
+     */
+
 const authUser = (req, res, next) =>{
 
     // conseguimos el token completo
@@ -11,10 +20,6 @@ const authUser = (req, res, next) =>{
     next(HttpError(401,{message:"No token"}))
     // if(authorization)
     const token = authorization.substring(7);
-
-    // desencriptar token para obtener username
-    // comparar el username token con username BBDD
-    // obtenemos fecha caducidad del token
 
     (token) ? next(): next(HttpError(401, {message:"Invalid token"}));
 }
