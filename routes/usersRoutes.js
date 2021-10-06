@@ -5,4 +5,8 @@ const userRoute = Router();
 
 userRoute.route('/').get(usersController.getAllUsers);
 
+userRoute.route('/register').post(usersController.registerUser);
+
+userRoute.route('/login').post(usersController.loginUser);
+
 export default userRoute;
