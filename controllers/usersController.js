@@ -43,12 +43,15 @@ const loginUser = (req, res, next) => {
  let checkUser = userModel.userLogin(body.username, body.password);
  console.log(checkUser);
  let token = "token";
+ if(!body.username || !body.password){
+    next(HttpError(400,{message:'Error in the incoming data'}))
+} else {
  (checkUser == true) ? res.json({token: token}).send( `${userName} Welcome to your page`).status(200) :
                        next(HttpError(404, {message: `User ${body.username} not found`}));
  
 
 }
-
+}
 export default  {
     getAllUsers,
     registerUser,
