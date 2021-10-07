@@ -8,7 +8,7 @@ const router = Router();
 
 router.route('/')
             .get(moviesController.getAllMovies)
-            .all(authHandler.authUser)
+            .all(authHandler.authUser) // metodo de express 
             .post(moviesController.postMovie)
 
 router.route('/:id').all(authHandler.authUser)

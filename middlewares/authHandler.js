@@ -1,7 +1,8 @@
 import  HttpError  from "http-errors";
 import bcrypt from 'bcrypt';
+import  jwt  from "jsonwebtoken";
 
-
+//const SECRET = 'mysecreto';
     // desencriptar token para obtener username
     // comparar el username token con username BBDD
     // obtenemos fecha caducidad del token
@@ -35,6 +36,13 @@ const encryptPassword = async (req, res, next) => {
         next(error);
     }
 }
+
+const generateToken = (username) =>{
+// nos genera el payload del jwt
+    const token = jwt.sign({username: username}, process.env.SECRET)
+
+    return token;
+}
 /* const decrypthandler = async (req, res, next) =>{
 
     try {
@@ -45,5 +53,6 @@ const encryptPassword = async (req, res, next) => {
 } */
 export default {
     authUser,
-    encryptPassword
+    encryptPassword,
+    generateToken
 };

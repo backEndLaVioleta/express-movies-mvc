@@ -1,6 +1,8 @@
 import userModel from "../models/userModels.js";
 import HttpError from "http-errors";
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
+import authHandler from "../middlewares/authHandler.js";
 // GET
 const getAllUsers = (req, res, next) => {
   const users = userModel.getUsers();
@@ -15,7 +17,7 @@ const getAllUsers = (req, res, next) => {
     res.json({name: `${userName}`, password: `${userPassword}`})
 } */
 
-const registerUser = async (req, res, next) => {
+const registerUser =  (req, res, next) => {
   console.log("register controller works");
   try {
     const body = req.body;
@@ -25,7 +27,7 @@ const registerUser = async (req, res, next) => {
     } else {
       //
       // const saltRounds = 10;
-
+// si no HAY un await no es necesario que la función sea async!!!!!!!!
       // const passwordHardsh = await bcrypt.hash(body.password, saltRounds);
 
       // si todo es correcto DEBEMOS guardar esoso datos!!! Important
@@ -72,6 +74,11 @@ const registerUser = async (req, res, next) => {
  
 } */
 
+// como generamos un token
+const getTokenFrom = (req) => {
+
+}
+
 // Raul Solution
 const loginUser = async (req, res, next) => {
   try {
@@ -88,8 +95,10 @@ const loginUser = async (req, res, next) => {
       if (user === undefined) {
           next(HttpError(400, {message: 'Username or Password incorrect'}));
       } else {
-         await bcrypt.compare(body.password, user.password); 
-         let token = "miToken";
+        
+         // let token = "miToken";
+         // aqui generamos el token
+         const token = authHandler.generateToken(body.username);
          res.json({token: token}).send( `${body.username} Welcome to your page`).status(200)
       }
     }
