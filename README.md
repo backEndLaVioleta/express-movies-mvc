@@ -9,3 +9,10 @@
 
  * npm i express
 
+ * npm i dotenv
+
+ * npm i bcrypt
+
+ * npm i jsonwebtoken
+ 
+
