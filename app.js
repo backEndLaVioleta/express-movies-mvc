@@ -3,11 +3,11 @@ import moviesRoutes from './routes/moviesRoutes.js';
 import usersRoutes from './routes/usersRoutes.js'
 import errorRoute from './routes/errorRoute.js'
 import clientErrorHandler from './middlewares/errorHandler.js';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 // npm i dotenv
 // todo lo que necesitamos que sea secreto se escribirá en el fiche  .env
 // situado en el directorio raiz
-dotenv.config()
+// dotenv.config()
 
 const app = express();
 
