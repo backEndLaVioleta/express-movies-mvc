@@ -37,22 +37,24 @@ const encryptPassword = async (req, res, next) => {
     }
 }
 
-const generateToken = (username) =>{
-// nos genera el payload del jwt
-    const token = jwt.sign({username: username}, process.env.SECRET)
+const getTokenFrom = (request) => {
+    const authorization = request.get('authorization');
 
-    return token;
-}
-/* const decrypthandler = async (req, res, next) =>{
-
-    try {
-      const  passwordCorrect = await bcrypt.compare(req.body.password, user.password);
-    } catch (error) {
-        next(error)
+    if(authorization && authorization.toLowerCase().startsWith('bearer ')) {
+        return authorization.substring(7);
+    } else {
+        return null;
     }
-} */
+}
+// nos genera el payload del jwt
+const generateToken = (username) => jwt.sign({username: username}, process.env.SECRET);
+
+ // checks token
+const verifyToken = (token) => jwt.verify(token, process.env.SECRET);
+
 export default {
     authUser,
     encryptPassword,
-    generateToken
+    generateToken,
+    verifyToken
 };
