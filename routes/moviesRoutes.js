@@ -8,11 +8,13 @@ const router = Router();
 
 router.route('/')
             .get(moviesController.getAllMovies)
+            .get(moviesController.getOneMovie)
             .all(authHandler.authUser) // metodo de express 
             .post(moviesController.postMovie)
 
-router.route('/:id').all(authHandler.authUser)
+router.route('/:id')
                     .get(moviesController.getOneMovie)
+                    .all(authHandler.authUser)
                     .put(moviesController.putMovie)
                     .delete(moviesController.deleteOneMovie)
 

@@ -8,6 +8,7 @@ class UserModel {
          // return users;
          return text;
      }
+     
      getOneUser(obj){
          
          return users.find((el) => el.username == obj.username);

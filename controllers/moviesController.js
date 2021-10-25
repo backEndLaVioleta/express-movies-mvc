@@ -4,23 +4,34 @@ import movies from '../data/movies.js';
 // movies controller handles all http methods
 // gestion de las peticiones
 // GET
-const getAllMovies = (req,res) =>{
-    const movies = moviesModel.getMovies();
+const getAllMovies = async (req,res) =>{
+    try {
+    const movies = await moviesModel.getMovies();
     res.json(movies).status(200);
-    res.status(500).send('DDBB of movies not found!')
+    } catch (error) {
+        next(HttpError(400, {messsage: 'No database available'}));
+    }
+    
     
 }
 // GET ONE
-const getOneMovie = (req, res, next) =>{
+const getOneMovie = async (req, res, next) =>{
+try {
+    
     // que exista el id
     if(!req.params.id)
         // si no hay id patada adelante con error
         next(HttpError(400, {message: "No ID found"}));
     
     const id = req.params.id;
-    const movie = moviesModel.getOne(id);
+    const movie = await moviesModel.getOne(id);
     res.json(movie).status(201);
-    res.status(404).send('Movie already in the DDBB');
+   
+} catch (error) {
+    console.log(error);
+    next(HttpError(400, {message: "No movie found"}));
+}
+
 }
 
 // POST

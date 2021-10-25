@@ -12,10 +12,23 @@ GET http://localhost:3000/movies/
 
 ############
 
+GET http://localhost:3000/movies/3
+
+############
+
 PUT http://localhost:3000/movies/1
 Content-Type: application/json
 
 {
       "id": 1,
       "title": "Curso Back-End Web"
+}
+
+#######################
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "username": "John Wick",
+    "password": 1234
 }

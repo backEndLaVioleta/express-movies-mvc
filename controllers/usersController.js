@@ -3,9 +3,15 @@ import HttpError from "http-errors";
 import bcrypt from "bcrypt";
 import authHandler from "../middlewares/authHandler.js";
 // GET
-const getAllUsers = (req, res, next) => {
-  const users = userModel.getUsers();
+const getAllUsers = async (req, res, next) => {
+
+  try {
+    const users = await userModel.getUsers();
   res.json(users).status(200);
+  } catch (error) {
+    next(HttpError(400, {message:" User's error"}));
+  }
+  
 };
 
 const registerUser = (req, res, next) => {
@@ -25,9 +31,9 @@ const registerUser = (req, res, next) => {
       // si todo es correcto DEBEMOS guardar esoso datos!!! Important
       // Guardamos estos datos enun obj
       const user = { username: body.username, password: body.password };
-
+      console.log(result);
       const result = userModel.createUser(user);
-
+      
       if (result == undefined) next(HttpError(400, { message: "Failed register" }));
 
       res.status(200).json(result);
@@ -35,7 +41,7 @@ const registerUser = (req, res, next) => {
 
   } catch (error) {
 
-    next(error);
+    next(HttpError(400, {message: 'Something wrong at creating user'}));
 
   }
 
