@@ -62,18 +62,34 @@ const postMovie = async (req, res, next) =>{
 }
 
 // PUT
-const putMovie = (req, res)=>{
-    const id = req.params.id;
-    const movieIndex = moviesModel.putMovies(id);
-    // returns -1 when is no a match
-    if(movieIndex < 0) 
-    res.status(400).json({result:`The movie with id: ${id} is not in the DDBB`});
+// const putMovie = (req, res)=>{
+//     const id = req.params.id;
+//     const movieIndex = moviesModel.putMovies(id);
+//     // returns -1 when is no a match
+//     if(movieIndex < 0) 
+//     res.status(400).json({result:`The movie with id: ${id} is not in the DDBB`});
+// 
+//     const newMovie = {...movies[movieIndex],...req.body}
+//     console.log(newMovie);
+//     movies.splice(movieIndex, 1, newMovie);
+//     res.json(movies[movieIndex]).status(200);
+// 
+// }
+const putMovie = async (req, res, next)=>{
 
-    const newMovie = {...movies[movieIndex],...req.body}
-    console.log(newMovie);
-    movies.splice(movieIndex, 1, newMovie);
-    res.json(movies[movieIndex]).status(200);
+    try {
+        const id = req.params.id;
 
+        const movie = await moviesModel.getOne(id);
+        console.log(movie);
+
+        const updateMe = await moviesModel.putMovies(movie);
+        console.log(updateMe);
+        
+
+    } catch (error) {
+        next(HttpError(400, {message: error.message}));
+    }
 }
 // DELETE
 //const deleteOneMovie = (req, res) =>{
@@ -90,7 +106,7 @@ const putMovie = (req, res)=>{
 const deleteOneMovie = async (req, res, next) =>{
     try {
         const id = req.params.id;
-        
+
         const deleteMe = await moviesModel.deleteMovies(id);
         
         (deleteMe.affectedRows == 0) ? res.json({result:'Movie not in the DDBB'}).status(200):

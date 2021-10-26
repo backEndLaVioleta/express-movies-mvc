@@ -2,7 +2,7 @@
 //import movies from '../data/movies.js';
 import connection from '../mysql/dbManager.js';
 import  HttpError  from 'http-errors';
-import { json } from 'express';
+import  json  from 'express';
 class MoviesModel{
     // all logic of the movies go in HERE
     // trata con los datos req res
@@ -68,9 +68,16 @@ try {
         return findIndex;
         
     } */
-   async putMovies(){
+   async putMovies(movie){
+       
     try {
-        
+        const sql =  'UPDATE movie SET title = ?, poster = ?, synopsis = ?, genres_id = ?, year = ?, director = ?, actors = ? WHERE movie_id = ?'
+        const updateMovie = await connection.query(
+           sql, [movie.title, movie.poster, movie.synopsis, movie.genres_id, movie.year, movie.director, movie.actors, movie.id] 
+        );
+        console.log(updateMovie);
+        return updateMovie;
+
     } catch (error) {
         throw new Error(error.message);
         
