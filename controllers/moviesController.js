@@ -29,17 +29,18 @@ try {
    
 } catch (error) {
     console.log(error);
-    next(HttpError(400, {message: "No movie found"}));
+    next(HttpError(400, {message: error.message}));
 }
 
 }
 
 // POST
-const postMovie = (req, res) =>{
-    const {id, title, poster, synopsis, genres = [], year, director, actors = []} = req.body;
+const postMovie = (req, res, next) =>{
+    try {
+        const {id, title, poster, synopsis, genres = [], year, director, actors = []} = req.body;
     // const id = req.params;
     const movie = {
-        id,
+        ...id,
         title,
         poster,
         synopsis,
@@ -49,13 +50,18 @@ const postMovie = (req, res) =>{
         actors
     };
     // movies
-    const movies = moviesModel.getMovies();
+    // const movies =  moviesModel.getMovies();
     // tell me if there is any equal to it and then jump
-    const findOne = movies.find((el) => (el.id) == (movie.id));
-    console.log(findOne);
-    (findOne) ? res.status(400).send('Movie already in the DDBB') :
-                moviesModel.postMovies(movie);
+    // const findOne = movies.find((el) => (el.id) == (movie.id));
+    const findOne = moviesModel.checkMovies(movie);
+    
+    (findOne == true) ? res.status(400).send('Movie already in the DDBB') :
+                        moviesModel.postMovies(movie);
     res.status(201).json(movie);
+    } catch (error) {
+        next(HttpError(400, {message:error.message}));
+    }
+    
 }
 
 // PUT

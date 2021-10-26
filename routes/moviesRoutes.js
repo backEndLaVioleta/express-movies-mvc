@@ -8,15 +8,17 @@ const router = Router();
 
 router.route('/')
             .get(moviesController.getAllMovies)
-            .get(moviesController.getOneMovie)
-            .all(authHandler.authUser) // metodo de express 
             .post(moviesController.postMovie)
+          //.put(moviesController.putMovie)
+          //.delete(moviesController.deleteOneMovie)
+           // .all(authHandler.authUser) // metodo de express 
+            
 
-router.route('/:id')
+ router.route('/:id')
                     .get(moviesController.getOneMovie)
                     .all(authHandler.authUser)
                     .put(moviesController.putMovie)
-                    .delete(moviesController.deleteOneMovie)
+                    .delete(moviesController.deleteOneMovie) 
 
 // movieRoutes.get('/', moviesController.getAllMovies);
 // movieRoutes.get('/:id', moviesController.getOneMovie);

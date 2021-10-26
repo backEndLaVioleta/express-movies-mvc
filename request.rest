@@ -12,7 +12,7 @@ GET http://localhost:3000/movies/
 
 ############
 
-GET http://localhost:3000/movies/3
+GET http://localhost:3000/movies/2
 
 ############
 
@@ -31,4 +31,18 @@ Content-Type: application/json
 {
     "username": "John Wick",
     "password": 1234
+}
+
+#######################
+POST http://localhost:3000
+Content-Type: application/json
+
+{
+        "title": "John Wick",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg",
+        "synopsis": "Lorem ipsum",
+        "genres": "Action, Drama",
+        "year": "2014", 
+        "director": "Chad Stahelski",
+        "actors": "Keanu Reeves"
 }
