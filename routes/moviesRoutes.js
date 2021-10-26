@@ -16,9 +16,11 @@ router.route('/')
 
  router.route('/:id')
                     .get(moviesController.getOneMovie)
-                    .all(authHandler.authUser)
                     .put(moviesController.putMovie)
                     .delete(moviesController.deleteOneMovie) 
+                    // .all(authHandler.authUser)
+                    // .put(moviesController.putMovie)
+                    // .delete(moviesController.deleteOneMovie) 
 
 // movieRoutes.get('/', moviesController.getAllMovies);
 // movieRoutes.get('/:id', moviesController.getOneMovie);

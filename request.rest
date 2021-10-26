@@ -38,12 +38,16 @@ POST http://localhost:3000/movies
 Content-Type: application/json
 
 {
-       "id": null,
-        "title": "John Wick",
+      
+        "title": "The Dark Knight7",
         "poster": "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg",
         "synopsis": "Lorem ipsum",
         "genres": "Action, Drama",
         "year": "2014", 
-        "director": "Chad Stahelski",
-        "actors": "Keanu Reeves"
+        "director": "Christopher Nolan",
+        "actors": ["Keanu Reeves", "John Wick"]
 }
+
+############
+
+DELETE http://localhost:3000/movies/12

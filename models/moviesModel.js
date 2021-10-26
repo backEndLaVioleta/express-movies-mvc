@@ -2,6 +2,7 @@
 //import movies from '../data/movies.js';
 import connection from '../mysql/dbManager.js';
 import  HttpError  from 'http-errors';
+import { json } from 'express';
 class MoviesModel{
     // all logic of the movies go in HERE
     // trata con los datos req res
@@ -52,47 +53,61 @@ try {
     async postMovies(obj){
         try {
             const createMovie = await connection.query(
-                'insert into movie(id, title, poster, synopsis, genres, year, director, actors) values = ?',
-                [obj.id, obj.title, obj.poster, obj.synopsis, obj.genres, obj.year, obj.director, obj.actors],
-                (error, result)=>{
-                    console.log(result);
-                    if(error) throw new Error("No new movie added to the Database ");
-                    return movies.push(result);
-                }
-            )
+                'insert into movie( title, poster, synopsis, genres_id, year, director, actors) values (?, ?, ?, ?, ? ,?, ?)',
+                [ obj.title, obj.poster, obj.synopsis, obj.genres, obj.year, obj.director, obj.actors]);
+                   // return movies.push(result);
+                
+            return createMovie;
         } catch (error) {
             console.log(error)
         }
     }
     // put 
-    putMovies(num){
-       // const findIndex = movies.findIndex((el) => el.id == num);
-       // return findIndex;
+    /* putMovies(num){
+        const findIndex = movies.findIndex((el) => el.id == num);
+        return findIndex;
+        
+    } */
+   async putMovies(){
+    try {
+        
+    } catch (error) {
+        throw new Error(error.message);
         
     }
-    //delete
-    deleteMovies(num){
-       // const findMyIndex = movies.findIndex((el) => el.id == num);
-       // let eraseMe;
-       // (findMyIndex < 0) ? eraseMe = num : eraseMe = movies.splice(findMyIndex, 1);
-       // return eraseMe;
-
     }
+    //delete
+    // deleteMovies(num){
+       //  const findMyIndex = movies.findIndex((el) => el.id == num);
+       //  let eraseMe;
+       //  (findMyIndex < 0) ? eraseMe = num : eraseMe = movies.splice(findMyIndex, 1);
+       //  return eraseMe;
 
+    // }
+    async deleteMovies(num){
+        try {
+            const deleteMovie = await connection.query(
+                'DELETE from movie where movie_id = ?', [num]
+            );
+            
+            return deleteMovie;
+        } catch (error) {
+            throw new Error(error.message);
+            
+        }
+    }
     // aux functions
     /* checkMovies(obj){
         return  movies.some((el)=> el.id == obj.id);
     } */
-    async checkMovies(obj){
+    async checkMovies(movie){
         try {
             // query
             const checkMe = await connection.query(
-                'select * from movie where movie_id = ?',[obj.id],
-                (error, result)=>{
-                    const findMe = movies.some((el) => el.id == result)
-                });
-            
-            return checkMe;
+                'select * from movie where title = ? and director = ?',[movie.title, movie.director])
+                console.log(checkMe[0]);
+                return checkMe[0];
+        
         } catch (error) {
             error = 'Movie not checked';
             console.log(error);
