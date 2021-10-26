@@ -54,7 +54,7 @@ const postMovie = (req, res, next) =>{
     // tell me if there is any equal to it and then jump
     // const findOne = movies.find((el) => (el.id) == (movie.id));
     const findOne = moviesModel.checkMovies(movie);
-    
+    console.log(findOne);
     (findOne == true) ? res.status(400).send('Movie already in the DDBB') :
                         moviesModel.postMovies(movie);
     res.status(201).json(movie);

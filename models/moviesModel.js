@@ -52,9 +52,11 @@ try {
     async postMovies(obj){
         try {
             const createMovie = await connection.query(
-                'insert into movie(id, title, poster, synopsis, genres, year, director, actors) = ?',
-                [obj.title, obj.poster, obj.synopsis, obj.genres, obj.year, obj.director, obj.actors],
+                'insert into movie(id, title, poster, synopsis, genres, year, director, actors) values = ?',
+                [obj.id, obj.title, obj.poster, obj.synopsis, obj.genres, obj.year, obj.director, obj.actors],
                 (error, result)=>{
+                    console.log(result);
+                    if(error) throw new Error("No new movie added to the Database ");
                     return movies.push(result);
                 }
             )
@@ -92,7 +94,9 @@ try {
             
             return checkMe;
         } catch (error) {
+            error = 'Movie not checked';
             console.log(error);
+            throw new Error(error);
         }
     }
    
