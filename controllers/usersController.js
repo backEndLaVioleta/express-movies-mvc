@@ -1,4 +1,4 @@
-import userModel from "../models/userModels.js";
+import userModels from "../models/userModels.js";
 import HttpError from "http-errors";
 import bcrypt from "bcrypt";
 import authHandler from "../middlewares/authHandler.js";
@@ -14,7 +14,7 @@ const getAllUsers = async (req, res, next) => {
   
 };
 
-const registerUser = (req, res, next) => {
+const registerUser = async (req, res, next) => {
 
   try {
     const body = req.body;
@@ -30,11 +30,12 @@ const registerUser = (req, res, next) => {
 
       // si todo es correcto DEBEMOS guardar esoso datos!!! Important
       // Guardamos estos datos enun obj
-      const user = { username: body.username, password: body.password };
+      const user = { username: body.username, password: body.password, role: body.role };
+     
+      const result = await userModels.createUser(user);
       console.log(result);
-      const result = userModel.createUser(user);
-      
-      if (result == undefined) next(HttpError(400, { message: "Failed register" }));
+
+     // if (result == undefined) next(HttpError(400, { message: "Failed register" }));
 
       res.status(200).json(result);
     }
@@ -60,7 +61,7 @@ const loginUser = async (req, res, next) => {
     } else {
 
       // I need the user object
-      const user = userModel.getOneUser({ username: body.username });
+      const user = userModels.getOneUser({ username: body.username });
 
       console.log(user);
 

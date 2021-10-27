@@ -12,7 +12,7 @@ GET http://localhost:3000/movies/
 
 ############
 
-GET http://localhost:3000/movies/2
+GET http://localhost:3000/movies/8
 
 ############
 
@@ -31,13 +31,19 @@ Content-Type: application/json
       
 }
 
+############
+
+GET http://localhost:3000/users
+
+
 #######################
-POST http://localhost:3000/register
+POST http://localhost:3000/users/register
 Content-Type: application/json
 
 {
     "username": "John Wick",
-    "password": 1234
+    "password": 1234,
+    "rol": "user"
 }
 
 #######################
@@ -49,7 +55,7 @@ Content-Type: application/json
         "title": "The Dark Knight 2",
         "poster": "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg",
         "synopsis": "Lorem ipsum",
-        "genres": "Action, Drama",
+        "genres_id": "Action, Drama",
         "year": "2014", 
         "director": "Christopher Nolan",
         "actors": ["Keanu Reeves", "John Wick"]
@@ -57,4 +63,4 @@ Content-Type: application/json
 
 ############
 
-DELETE http://localhost:3000/movies/12
+DELETE http://localhost:3000/movies/6

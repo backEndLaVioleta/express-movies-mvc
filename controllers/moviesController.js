@@ -25,7 +25,8 @@ try {
     
     const id = req.params.id;
     const movie = await moviesModel.getOne(id);
-    res.json(movie).status(201);
+    (!movie.length) ? res.json({result: 'Movie not in the database'}).status(404) : res.json(movie).status(201);
+    
    
 } catch (error) {
     console.log(error);
@@ -78,6 +79,7 @@ const postMovie = async (req, res, next) =>{
 const putMovie = async (req, res, next)=>{
 
     try {
+        // we MUST declare where te data comes from
         const id = req.params.id;
        
         const movie = await moviesModel.getOne(id);
