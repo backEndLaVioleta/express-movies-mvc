@@ -1,6 +1,6 @@
 create database movies;
 use movies;
-select * from movies;
+select * from movie;
 create table movie(
 movie_id int unsigned not null auto_increment primary key,
 title varchar(100) not null,

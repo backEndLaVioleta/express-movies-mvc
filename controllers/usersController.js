@@ -36,8 +36,9 @@ const registerUser = async (req, res, next) => {
       console.log(result);
 
      // if (result == undefined) next(HttpError(400, { message: "Failed register" }));
+     if (!result.length) next(HttpError(400, { message: "Failed register" }));
 
-      res.status(200).json(result);
+      res.status(201).json(result);
     }
 
   } catch (error) {
