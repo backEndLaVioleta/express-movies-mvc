@@ -16,12 +16,19 @@ GET http://localhost:3000/movies/2
 
 ############
 
-PUT http://localhost:3000/movies/1
+PUT http://localhost:3000/movies/7
 Content-Type: application/json
 
 {
-    
-      "title": "Curso Back-End Web"
+     "movie_id": 7,
+      "title": "Curso Back-End Web",
+        "poster": "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg",
+        "synopsis": "Lorem ipsum",
+        "genres": "Action, Drama",
+        "year": "2014", 
+        "director": "Christopher Nolan",
+        "actors": ["Keanu Reeves", "John Wick"]
+      
 }
 
 #######################
@@ -39,7 +46,7 @@ Content-Type: application/json
 
 {
       
-        "title": "The Dark Knight7",
+        "title": "The Dark Knight 2",
         "poster": "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg",
         "synopsis": "Lorem ipsum",
         "genres": "Action, Drama",

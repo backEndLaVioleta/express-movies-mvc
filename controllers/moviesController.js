@@ -49,7 +49,7 @@ const postMovie = async (req, res, next) =>{
     console.log(findOne);
     if(findOne == undefined) {
        const newMovie = await moviesModel.postMovies(movie);
-        res.status(201).json(newMovie);
+        res.status(201).json({result:`${movie.title} has been added to the DDBB`});
        
     } else {
         res.status(400).send('Movie already in the DDBB');
@@ -79,7 +79,7 @@ const putMovie = async (req, res, next)=>{
 
     try {
         const id = req.params.id;
-
+       
         const movie = await moviesModel.getOne(id);
         console.log(movie);
 
