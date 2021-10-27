@@ -18,7 +18,7 @@ app.use('/movies', moviesRoutes);
 
 // users
 app.use('/users', usersRoutes);
-// app.use('/users/register', usersRoutes);
+app.use('/users/register', usersRoutes);
 // app.use('/users/login', usersRoutes);
 app.use('*', errorRoute)
 

@@ -38,8 +38,8 @@ insert into secret values(UNHEX(SHA2('mysecret',512)));
 
 
 -- esto no funciona
-INSERT INTO user(username, password) VALUES ('Paco','1234');
-
+INSERT INTO user(username, pass_word) VALUES ('Paco','1234');
+select * from user;
 -- esto no funciona: no se pueden crear variables globales customizadas.
 -- SET GLOBAL SECRET = UNHEX(SHA2('mysecret',512));
 

@@ -10,7 +10,7 @@ const userRoute = Router();
 userRoute.route('/').get(usersController.getAllUsers);
 
 userRoute.route('/register')
-.post(authHandler.encryptPassword)
+//.post(authHandler.encryptPassword)
 .post(usersController.registerUser);
 
 userRoute.route('/login').post(usersController.loginUser);
