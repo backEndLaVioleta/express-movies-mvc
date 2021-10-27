@@ -2,7 +2,8 @@ import express from 'express';
 import moviesRoutes from './routes/moviesRoutes.js';
 import usersRoutes from './routes/usersRoutes.js'
 import errorRoute from './routes/errorRoute.js'
-import clientErrorHandler from './middlewares/errorHandler.js';
+import {clientErrorHandler, genericErrorHandler, clientErrorHandlerSql} from './middlewares/errorHandler.js';
+
 // import dotenv from 'dotenv';
 // npm i dotenv
 // todo lo que necesitamos que sea secreto se escribirá en el fiche  .env
@@ -22,5 +23,6 @@ app.use('/users', usersRoutes);
 app.use('*', errorRoute)
 
 app.use(clientErrorHandler);
-
+app.use(clientErrorHandlerSql);
+app.use(genericErrorHandler);
 export default app;
