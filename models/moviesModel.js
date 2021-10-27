@@ -5,7 +5,7 @@ import  json  from 'express';
 class MoviesModel{
    
     // GET
-   async getMovies(req, res, next){
+   async getMovies(){
 
       try {
           const result = await connection.query(
@@ -15,7 +15,7 @@ class MoviesModel{
           return result;
       } catch (error) {
           console.log(error);
-          next(HttpError(400, {message:error.message}))
+        throw error;
       } 
     }
 
