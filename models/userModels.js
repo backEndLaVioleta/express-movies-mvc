@@ -62,8 +62,8 @@ class UserModel {
         try {
 
             const result = await connection.query(
-                'call insert_user(?, ?, ?)',
-                [user.username, user.password, user.rol]
+                'call insert_user(?,?,?)',
+                [user.username, user.password, user.role]
             );
             return result;
             
