@@ -7,10 +7,12 @@ export default class User {
     role = 'user';
     table = 'table';
 
-    constructor(userId, username, role){
-        this.userId = userId;
-        this.username = username;
-        this.role = role;
+    constructor(userId, username, role, table){
+        
+        this.userId     = userId;
+        this.username   = username;
+        this.role       = role;
+        this.table      = table;
     }
 
     selectUser(){
