@@ -43,7 +43,6 @@ const registerUser = async (req, res, next) => {
 
   } catch (error) {
 
-   // next(HttpError(400, {message: 'Something wrong at creating user'}));
     next(HttpError(400, {message: error.message}));
 
   }

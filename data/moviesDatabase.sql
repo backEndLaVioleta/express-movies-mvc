@@ -53,7 +53,7 @@ p_role enum('user','admin'))
 BEGIN
 
 insert into user(user_id,username,pass_word,role) values(default, p_username, AES_ENCRYPT(p_password, (select secret from secret)),p_role);
--- select last_insert_id();
+
  select user_id  from user where username = p_username;
 commit;
 END$$
@@ -95,3 +95,4 @@ DELIMITER ;
 select CAST(AES_DECRYPT(pass_word, (select secret from secret)) AS CHAR(10000) CHARACTER SET utf8mb4) from user
    where username = 'Pao';
 select check_user('Paco','1234');
+select * from user;
