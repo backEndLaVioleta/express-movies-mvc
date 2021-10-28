@@ -50,7 +50,7 @@ const postMovie = async (req, res, next) =>{
     console.log(findOne);
     if(findOne == undefined) {
        const newMovie = await moviesModel.postMovies(movie);
-        res.status(201).json(newMovie);
+        res.status(201).json({result:`${movie.title} has been added to the DDBB`});
        
     } else {
         res.status(400).send('Movie already in the DDBB');
@@ -81,20 +81,12 @@ const putMovie = async (req, res, next)=>{
     try {
         // we MUST declare where te data comes from
         const id = req.params.id;
-        const movie = req.body;
-        // THIS doesn't work
-         // const movie = await moviesModel.getOne(id);
-         // REASON => the object movie is NOT the data that we are trying to modify
-         // therefore, the database doesn't recognise it at all and doesn't update the row
-         const findMovie = await moviesModel.getOne(id);
-         console.log(findMovie);
-        if(!findMovie.length){
-            res.status(400).json({result:`Movie not in the database`});
-        } else {
-        const updateMe = await moviesModel.putMovies(id, movie);
-       res.status(200).json({result:`Database updated: ${updateMe.info}`});
-        }
-        
+       
+        const movie = await moviesModel.getOne(id);
+        console.log(movie);
+
+        const updateMe = await moviesModel.putMovies(movie);
+        console.log(updateMe);
         
 
     } catch (error) {

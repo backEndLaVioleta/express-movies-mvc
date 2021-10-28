@@ -39,27 +39,33 @@ class MoviesModel{
     // POST
     async postMovies(obj){
         try {
+            const sqlRaul =  'insert into movie( title, poster, synopsis, genres_id, year, director, actors) values (?, ?, ?, ?, ? ,?, ?)';
+            const sqlCasa =  'insert into movie( title, poster, synopsis, genres, year, director, actors) values (?, ?, ?, ?, ? ,?, ?)';
             const createMovie = await connection.query(
-                'insert into movie( title, poster, synopsis, genres_id, year, director, actors) values (?, ?, ?, ?, ? ,?, ?)',
-                [ obj.title, obj.poster, obj.synopsis, obj.genres, obj.year, obj.director, obj.actors]);
-                  
+               sqlCasa, [ obj.title, obj.poster, obj.synopsis, obj.genres, obj.year, obj.director, obj.actors]);
+                   // return movies.push(result);
                 
             return createMovie;
         } catch (error) {
             console.log(error)
         }
     }
-    // PUT
-
-   async putMovies(id, movie){
-       
-    try {
+    // put 
+    /* putMovies(num){
+        const findIndex = movies.findIndex((el) => el.id == num);
+        return findIndex;
         
-        const sql =  'UPDATE `movie` SET   `title` = ?, `poster` = ?, `synopsis` = ?, `genres_id` = ?, year = ?, `director` = ?, `actors` = ? WHERE `movie_id` = ?';
+    } */
+   async putMovies(movie){
+    try {
+        const sql =  'UPDATE movie SET `title` = ?, `poster` = ?, `synopsis` = ?, `genres_id` = ?, `year` = ?, `director` = ?, `actors` = ? WHERE `movie_id` = ?';
+        const sqlCasa =  'UPDATE movie SET `title` = ?, `poster` = ?, `synopsis` = ?, `genres` = ?, `year` = ?, `director` = ?, `actors` = ? WHERE `movie_id` = ?';
+        
         const updateMovie = await connection.query(
-           sql, [ movie.title, movie.poster, movie.synopsis, movie.genres_id, movie.year, movie.director, movie.actors, id] 
+           sqlCasa, [movie.title, movie.poster, movie.synopsis, movie.genres_id, movie.year, movie.director, movie.actors, movie.movie_id] 
         );
         console.log(updateMovie);
+        
         return updateMovie;
 
     } catch (error) {

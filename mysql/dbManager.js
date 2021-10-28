@@ -17,6 +17,7 @@ class MySqlManager {
             this.connection = await mysql.createConnection(db);
         } catch (error) {
             console.log(error);
+            throw error;
         }
     };
 
@@ -38,6 +39,7 @@ class MySqlManager {
            return results;
         } catch (error) {
             console.log(error);
+            throw error;
         }
     };
 }

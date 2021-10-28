@@ -9,11 +9,11 @@ export const clientErrorHandler = (err, req, res, next) =>{
 
 export const clientErrorHandlerSql = (err, req, res, next) => {
     if(err instanceof HttpError.HttpError)
-    res.status(err.statusCode).json({error: err.message});
+        res.status(err.statusCode).json({ERROR: err.message});
     if(err.sqlMessage ==  err.message)
-    res.status(400).json({ERROR: err.message});
-    if(err.name === "JsonWebTokenError" )
-    res.status(400).json({ERROR: err.message});
+        res.status(400).json({ERROR: err.message});
+    if(err.name === "JsonWebTokenError")
+        res.status(400).json({ERROR: err.message});
 
     next(err);
 };
