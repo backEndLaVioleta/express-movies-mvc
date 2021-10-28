@@ -1,4 +1,4 @@
-
+use movies;
 DELIMITER $$
 create procedure insert_user(
 	IN p_username varchar(100),
