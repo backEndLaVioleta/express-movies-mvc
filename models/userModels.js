@@ -44,7 +44,7 @@ class UserModel {
     async getOneUser(id){
 
         try {
-            const sql = 'SELECT * from user whrere id = ?';
+            const sql = 'SELECT * from user whrere user_id = ?';
 
             const result = await connection.query(
                 [sql, id]
@@ -62,14 +62,24 @@ class UserModel {
         try {
 
             const result = await connection.query(
-                'call insert_user(?, ?, ?)',
-                [user.username, user.password, user.rol]
+                'call insert_user(?,?,?)',
+                [user.username, user.password, user.role]
             );
             return result;
             
         } catch (error) {
 
             throw error;
+            
+        }
+    }
+    async loginUser(user){
+        try {
+            return await connection.query(
+                `select check_user(?,?)`,
+                [user.username, user.password]
+            )
+        } catch (error) {
             
         }
     }
