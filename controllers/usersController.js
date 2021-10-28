@@ -6,7 +6,7 @@ import authHandler from "../middlewares/authHandler.js";
 const getAllUsers = async (req, res, next) => {
 
   try {
-    const users = await userModel.getUsers();
+    const users = await userModels.getUsers();
   res.json(users).status(200);
   } catch (error) {
     next(HttpError(400, {message:" User's error"}));
@@ -14,7 +14,7 @@ const getAllUsers = async (req, res, next) => {
   
 };
 
-const registerUser = async (req, res, next) => {
+/* const registerUser = async (req, res, next) => {
 
   try {
     const body = req.body;
@@ -47,10 +47,34 @@ const registerUser = async (req, res, next) => {
 
   }
 
+}; */
+
+const registerUser = async (req, res, next) => {
+
+  try {
+    const user = req.body;
+console.log(user);
+    if (!user.username || !user.password){
+
+      next(HttpError(400, {message: 'Missing username, password or both'}));
+
+    } else {
+
+      const result = await userModels.createUser(user);
+
+      if(result < 0) next(HttpError(400, {message: 'Failed operation'}));
+
+      res.status(200).json(result);
+    }
+    
+  } catch (error) {
+
+    next(error);
+  }
 };
 
 // Raul Solution
-const loginUser = async (req, res, next) => {
+/* const loginUser = async (req, res, next) => {
   try {
     // instanciamos body
     const body = req.body;
@@ -93,9 +117,34 @@ const loginUser = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+}; */
+
+const loginUser = async (req, res, next)=>{
+
+  try {
+    const user = req.body;
+
+    if(!user.username || !user.password){
+
+      next(HttpError(400, {message: 'Missing username, password or both.'}));
+
+    } else {
+      const result = await userModels.loginUser(user);
+
+      const token = await authHandler.generateToken(result.userId);
+      
+      res.status(200).json({token: token});
+
+    }
+    
+  } catch (error) {
+
+    next(error);
+  }
+}
+
 export default {
   getAllUsers,
   registerUser,
-  loginUser,
+  loginUser
 };

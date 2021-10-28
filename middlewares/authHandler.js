@@ -47,10 +47,10 @@ const getTokenFrom = (request) => {
     }
 }
 // nos genera el payload del jwt
-const generateToken = (username) => jwt.sign({username: username}, SECRET);
+const generateToken = async (username) => jwt.sign({username: username}, SECRET);
 
  // checks token
-const verifyToken = (token) => jwt.verify(token, SECRET);
+const verifyToken = async (token) => jwt.verify(token, SECRET);
 
 export default {
     authUser,

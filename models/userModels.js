@@ -1,6 +1,7 @@
 import users from '../data/users.js';
 import connection from '../mysql/dbManager.js';
 
+
 /* class UserModel {
      // USERS
      getUsers(){
@@ -80,7 +81,7 @@ class UserModel {
                 [user.username, user.password]
             )
         } catch (error) {
-            
+            throw error;
         }
     }
 }

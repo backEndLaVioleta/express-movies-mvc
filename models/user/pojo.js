@@ -1,11 +1,11 @@
 
-export default class User {
+export default class UserPojo {
 
-    userId = 'user_id';
+    userId   = 'user_id';
     username = 'username';
     password = 'password';
-    role = 'user';
-    table = 'table';
+    role     = 'user';
+    table    = 'table';
 
     constructor(userId, username, role, table){
         
@@ -18,4 +18,8 @@ export default class User {
     selectUser(){
         return `select ${this.username} from ${this.table} where ${this.userId}= ?`;
     };
+
+    selectAllUsers(){
+        return `sselect * from ${this.role}`;
+    }
 }

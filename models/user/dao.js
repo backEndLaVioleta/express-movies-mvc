@@ -1,16 +1,17 @@
-import User from '../user/pojo.js';
+import UserPojo from '../user/pojo.js';
 import connection from '../../mysql/dbManager.js';
 
 
 class UserDao {
 
     // user from pojo
-     userPojo = new User();
+     userPojo = new UserPojo();
 
     async getUsers(){
      try {
         
-         const result = await connection.query('SELECT * from user');
+        const sql = this.userPojo.selectAllUsers();
+         const result = await connection.query(sql);
          return result;
  
      } catch (error) {
